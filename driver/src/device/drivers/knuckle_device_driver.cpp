@@ -30,7 +30,7 @@ class KnuckleDeviceDriver::Impl {
         controller_id_ = result.controller_id;
       }
     });
-   
+    const vr::PropertyContainerHandle_t props_controller = vr::VRProperties()->TrackedDeviceToPropertyContainer(controller_id_);
    
     device_->ListenForInput([&](og::InputPeripheralData data) {
       // clang-format off
