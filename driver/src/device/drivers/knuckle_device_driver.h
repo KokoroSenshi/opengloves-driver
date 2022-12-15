@@ -68,4 +68,6 @@ class KnuckleDeviceDriver : public IDeviceDriver {
   vr::ETrackedControllerRole role_;
 
   std::atomic<bool> is_active_;
+  
+  std::atomic<uint32_t> controller_id_ = 0;
 };
