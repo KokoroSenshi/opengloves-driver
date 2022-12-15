@@ -19,7 +19,19 @@ class KnuckleDeviceDriver::Impl {
 
   void SetDeviceDriver(std::unique_ptr<og::IDevice> device) {
     device_ = std::move(device);
-
+   
+   
+    internal_server.AddTrackingReferenceRequestCallback([&](const TrackingReferenceResult& result) {
+      if (result.role == role_) {
+        DriverLog(
+            "Controller that %s hand is tracking from has been updated to id: %i",
+            role_ == vr::TrackedControllerRole_RightHand ? "right" : "left",
+            result.controller_id);
+        controller_id_ = result.controller_id;
+      }
+    });
+   
+   
     device_->ListenForInput([&](og::InputPeripheralData data) {
       // clang-format off
     hand_tracking_->ComputeBoneTransforms(skeleton_, data, IsRightHand() ? vr::TrackedControllerRole_RightHand : vr::TrackedControllerRole_LeftHand);
