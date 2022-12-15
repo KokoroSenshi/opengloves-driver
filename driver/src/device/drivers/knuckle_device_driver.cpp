@@ -2,10 +2,12 @@
 
 #include "device/pose/device_pose.h"
 #include "services/driver_external.h"
+#include "services/driver_internal.h"
 #include "hand_tracking/hand_tracking.h"
 #include "nlohmann/json.hpp"
 #include "util/file_path.h"
 
+static DriverInternalServer &internal_server = DriverInternalServer::GetInstance();
 static DriverExternalServer &external_server = DriverExternalServer::GetInstance();
 
 class KnuckleDeviceDriver::Impl {
